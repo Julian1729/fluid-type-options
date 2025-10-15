@@ -12,7 +12,7 @@ When `styles.typography.fluid` is enabled within `theme.json`, wordpress uses `w
 
 Clamp Typography enhances WordPress heading blocks with a minimum and maximum field under the custom font size field, allowing you to have precise control over the clamp output on the core/heading blocks.
 
-
+![Clamp Typography UI Screenshot](assets/ui-screenshot.png)
 
 ## ✨ Features
 
@@ -20,8 +20,7 @@ Clamp Typography enhances WordPress heading blocks with a minimum and maximum fi
 - **🤖 Smart Defaults**: Automatically calculates reasonable min/max values based on your chosen font size
 - **🎨 Theme Integration**: Works seamlessly with your theme's font size presets and custom font sizes
 - **📱 Responsive Typography**: Creates fluid typography that scales smoothly between breakpoints
-- **⚡ Performance Optimized**: Lightweight implementation with no frontend JavaScript
-- **🔧 Developer Friendly**: Clean, extensible code with hooks and filters
+- **⚡ Performance Optimized**: Lightweight implementation
 
 ## 🚀 Installation
 
@@ -47,26 +46,12 @@ npm run build
 1. **Add a Heading Block** in the WordPress editor
 2. **Set a Font Size** using either:
    - Theme font size presets (Small, Medium, Large, etc.)
-   - Custom font size values (18px, 1.2rem, etc.)
+   - Custom font size values (6vw, 1.2rem, etc.)
+   - Use a responsive unit such as vw, vh, rem, em
 3. **Configure Clamp Values** in the Typography panel:
    - **Min Size**: Smallest font size for mobile devices
    - **Max Size**: Largest font size for desktop screens
 4. **Publish** and see your fluid typography in action!
-
-![Clamp Typography UI Screenshot](assets/ui-screenshot.png)
-*The clamp typography controls integrated seamlessly into the WordPress block editor's Typography panel*
-
-### How It Works
-
-The plugin automatically converts fixed font sizes into CSS clamp() functions:
-
-```css
-/* Before: Fixed font size */
-font-size: 18px;
-
-/* After: Fluid typography */
-font-size: clamp(14.4px, 18px, 21.6px);
-```
 
 ### Smart Defaults
 
@@ -111,105 +96,6 @@ Currently supports:
 
 - ✅ Heading blocks (H1-H6)
 - 🔄 More blocks coming soon
-
-### WordPress Integration
-
-- Uses `wp_get_typography_font_size_value()` for accurate font size resolution
-- Integrates with `theme.json` font size presets
-- Compatible with Full Site Editing (FSE)
-- Follows WordPress coding standards
-
-## 🔧 Development
-
-### Build Process
-
-```bash
-# Development build with watch
-npm run start
-
-# Production build
-npm run build
-
-# Linting
-npm run lint:js
-npm run lint:php
-```
-
-### Project Structure
-
-```
-clamp-typography/
-├── src/
-│   └── index.js          # Block editor JavaScript
-├── build/                # Compiled assets
-├── clamp-typography.php  # Main plugin file
-├── package.json
-└── README.md
-```
-
-### Hooks & Filters
-
-```php
-// Modify clamp calculation
-add_filter('clamp_typography_calculate_defaults', function($defaults, $base_size) {
-    // Custom calculation logic
-    return $defaults;
-}, 10, 2);
-
-// Filter supported blocks
-add_filter('clamp_typography_supported_blocks', function($blocks) {
-    $blocks[] = 'core/paragraph';
-    return $blocks;
-});
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting pull requests.
-
-### Development Workflow
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Run tests and linting (`npm run lint`)
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
-
-## 📝 Changelog
-
-### [1.0.0] - 2025-10-15
-
-#### Added
-
-- Initial release
-- Heading block support with clamp typography
-- Smart default calculations based on font size
-- Integration with WordPress font size presets
-- Responsive typography controls in block editor
-
-## 🐛 Bug Reports & Feature Requests
-
-Found a bug or have a feature request? Please [open an issue](../../issues) on GitHub.
-
-When reporting bugs, please include:
-
-- WordPress version
-- PHP version
-- Active theme
-- Steps to reproduce
-- Expected vs actual behavior
-
-## 📄 License
-
-This project is licensed under the GPL-2.0+ License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- WordPress community for the amazing block editor
-- CSS Working Group for the clamp() function specification
-- All contributors and testers
 
 ## 📚 Resources
 
