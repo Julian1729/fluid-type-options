@@ -1,6 +1,37 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/utils.js":
+/*!**********************!*\
+  !*** ./src/utils.js ***!
+  \**********************/
+/***/ (() => {
+
+/**
+ * Calculate default min and max font sizes based on a base font size.
+ * @param {string} baseFontSize
+ * @returns {{min: string, max: string}}
+ */
+const calculateClampDefaults = baseFontSize => {
+  if (!baseFontSize) return {
+    min: "10px",
+    max: "20px"
+  };
+
+  // Parse the font size value
+  const sizeValue = parseFloat(baseFontSize);
+  const unit = baseFontSize.replace(sizeValue.toString(), "") || "px";
+
+  // Calculate min (80% of base) and max (120% of base)
+  const minValue = Math.round(sizeValue * 0.8 * 100) / 100;
+  const maxValue = Math.round(sizeValue * 1.2 * 100) / 100;
+  return {
+    min: `${minValue}${unit}`,
+    max: `${maxValue}${unit}`
+  };
+};
+
+/***/ }),
 
 /***/ "@wordpress/block-editor":
 /*!*************************************!*\
@@ -8,6 +39,7 @@
   \*************************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["blockEditor"];
 
 /***/ }),
@@ -18,6 +50,7 @@ module.exports = window["wp"]["blockEditor"];
   \************************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["components"];
 
 /***/ }),
@@ -28,6 +61,7 @@ module.exports = window["wp"]["components"];
   \*********************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["compose"];
 
 /***/ }),
@@ -38,6 +72,7 @@ module.exports = window["wp"]["compose"];
   \*******************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["hooks"];
 
 /***/ }),
@@ -48,6 +83,7 @@ module.exports = window["wp"]["hooks"];
   \******************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["wp"]["i18n"];
 
 /***/ }),
@@ -58,6 +94,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["React"];
 
 /***/ }),
@@ -68,6 +105,7 @@ module.exports = window["React"];
   \**********************************/
 /***/ ((module) => {
 
+"use strict";
 module.exports = window["ReactJSXRuntime"];
 
 /***/ })
@@ -141,8 +179,9 @@ module.exports = window["ReactJSXRuntime"];
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
+"use strict";
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
@@ -159,8 +198,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils */ "./src/utils.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_utils__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+
 
 
 
@@ -191,7 +233,6 @@ __webpack_require__.r(__webpack_exports__);
   };
 });
 function Edit(props) {
-  console.log("Edit props:", props);
   const {
     attributes,
     setAttributes
@@ -203,59 +244,18 @@ function Edit(props) {
   } = attributes;
   const fontSize = attributes.style?.typography?.fontSize;
 
-  // const [
-  // 	fontSizes,
-  // ] = useSettings(
-  // 	// Specific paths in theme.json
-  // 	"typography.fontSizes",
-  // );
-
-  // // Find the current font size preset info for display name
-  // const currentFontSizePreset = fontSizes?.find(
-  // 	(size) => size.slug === fontSize,
-  // );
-  // const fontSizeDisplayName = currentFontSizePreset?.name || fontSize;
-
-  // console.log("Resolved font size:", currentFontSize);
-  // console.log("Font size preset:", fontSize);
-  // console.log("Custom font size:", style?.typography?.fontSize);
-  // console.log("Current font size preset:", currentFontSizePreset);
-  // console.log("Available font sizes:", fontSizes);
-
-  // Helper function to calculate clamp values based on font size
-  const calculateClampDefaults = baseFontSize => {
-    if (!baseFontSize) return {
-      min: "10px",
-      max: "20px"
-    };
-
-    // Parse the font size value
-    const sizeValue = parseFloat(baseFontSize);
-    const unit = baseFontSize.replace(sizeValue.toString(), "") || "px";
-
-    // Calculate min (80% of base) and max (120% of base)
-    const minValue = Math.round(sizeValue * 0.8 * 100) / 100;
-    const maxValue = Math.round(sizeValue * 1.2 * 100) / 100;
-    return {
-      min: `${minValue}${unit}`,
-      max: `${maxValue}${unit}`
-    };
-  };
-
   // React to font size changes
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (fontSize && (!clampTypographyMin || !clampTypographyMax)) {
-      console.log("Font size changed to:", fontSize);
       const {
         min,
         max
-      } = calculateClampDefaults(fontSize);
+      } = (0,_utils__WEBPACK_IMPORTED_MODULE_6__.calculateClampDefaults)(fontSize);
       setAttributes({
         clampTypographyMin: min,
         clampTypographyMax: max,
         clampTypographyEnabled: true
       });
-      console.log(`Auto-calculated clamp values: min=${min}, max=${max}`);
     }
   }, [fontSize, clampTypographyMin, clampTypographyMax, setAttributes]);
   console.log("fontSize:", fontSize);
@@ -264,16 +264,16 @@ function Edit(props) {
     clampTypographyMax,
     clampTypographyEnabled
   });
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
     group: "typography",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("fieldset", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("fieldset", {
       style: {
         display: "flex",
         gap: "1rem",
         width: "100%",
         gridColumn: "1 / -1"
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalUnitControl, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalUnitControl, {
         style: {
           flex: 1
         },
@@ -284,7 +284,7 @@ function Edit(props) {
         value: clampTypographyMin || "",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Min. Size", "clamptype")
         // help={fontSize ? `Based on: ${fontSize}` : undefined}
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalUnitControl, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.__experimentalUnitControl, {
         style: {
           flex: 1
         },
@@ -302,14 +302,14 @@ function Edit(props) {
 (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__.addFilter)("editor.BlockEdit", "clamptype/header-with-clamp", (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_3__.createHigherOrderComponent)(BlockEdit => {
   return props => {
     if (props.name !== "core/heading") {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(BlockEdit, {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(BlockEdit, {
         ...props
       });
     }
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(BlockEdit, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(BlockEdit, {
         ...props
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(Edit, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(Edit, {
         ...props
       })]
     });

@@ -5,6 +5,8 @@ import { createHigherOrderComponent } from "@wordpress/compose";
 import { __experimentalUnitControl as UnitControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
 
+import { calculateClampDefaults } from "./utils";
+
 addFilter(
 	"blocks.registerBlockType",
 	"clamptype/header-with-clamp",
@@ -35,56 +37,15 @@ addFilter(
 );
 
 function Edit(props) {
-	console.log("Edit props:", props);
-
 	const { attributes, setAttributes } = props;
 	const { clampTypographyMin, clampTypographyMax, clampTypographyEnabled } =
 		attributes;
 
 	const fontSize = attributes.style?.typography?.fontSize;
 
-	// const [
-	// 	fontSizes,
-	// ] = useSettings(
-	// 	// Specific paths in theme.json
-	// 	"typography.fontSizes",
-	// );
-
-	// // Find the current font size preset info for display name
-	// const currentFontSizePreset = fontSizes?.find(
-	// 	(size) => size.slug === fontSize,
-	// );
-	// const fontSizeDisplayName = currentFontSizePreset?.name || fontSize;
-
-	// console.log("Resolved font size:", currentFontSize);
-	// console.log("Font size preset:", fontSize);
-	// console.log("Custom font size:", style?.typography?.fontSize);
-	// console.log("Current font size preset:", currentFontSizePreset);
-	// console.log("Available font sizes:", fontSizes);
-
-	// Helper function to calculate clamp values based on font size
-	const calculateClampDefaults = (baseFontSize) => {
-		if (!baseFontSize) return { min: "10px", max: "20px" };
-
-		// Parse the font size value
-		const sizeValue = parseFloat(baseFontSize);
-		const unit = baseFontSize.replace(sizeValue.toString(), "") || "px";
-
-		// Calculate min (80% of base) and max (120% of base)
-		const minValue = Math.round(sizeValue * 0.8 * 100) / 100;
-		const maxValue = Math.round(sizeValue * 1.2 * 100) / 100;
-
-		return {
-			min: `${minValue}${unit}`,
-			max: `${maxValue}${unit}`,
-		};
-	};
-
 	// React to font size changes
 	useEffect(() => {
 		if (fontSize && (!clampTypographyMin || !clampTypographyMax)) {
-			console.log("Font size changed to:", fontSize);
-
 			const { min, max } = calculateClampDefaults(fontSize);
 
 			setAttributes({
@@ -92,8 +53,6 @@ function Edit(props) {
 				clampTypographyMax: max,
 				clampTypographyEnabled: true,
 			});
-
-			console.log(`Auto-calculated clamp values: min=${min}, max=${max}`);
 		}
 	}, [fontSize, clampTypographyMin, clampTypographyMax, setAttributes]);
 

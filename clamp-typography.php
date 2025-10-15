@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name:       Clamp Typography
- * Description:       Example block scaffolded with Create Block tool.
+ * Plugin Name:       Fluid Type Options
+ * Description:       Have precise control over the clamp output on the core/heading blocks.
  * Version:           0.1.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
@@ -26,41 +26,6 @@ function init() {
 	);
 }
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\init' );
-
-/**
- * Get theme.json settings in PHP
- * Usage example: $settings = ClampTypography\get_theme_json_settings();
- */
-// function get_theme_json_settings() {
-// 	// Method 1: wp_get_global_settings (WordPress 5.9+) - Recommended
-// 	if ( function_exists( 'wp_get_global_settings' ) ) {
-// 		return [
-// 			'full' => wp_get_global_settings(),
-// 			'typography' => wp_get_global_settings(['typography']),
-// 			'spacing' => wp_get_global_settings(['spacing']),
-// 			'color' => wp_get_global_settings(['color']),
-// 			'fontSizes' => wp_get_global_settings(['typography', 'fontSizes']),
-// 			'colorPalette' => wp_get_global_settings(['color', 'palette']),
-// 		];
-// 	}
-	
-// 	// Method 2: WP_Theme_JSON_Resolver (WordPress 5.8-5.8.x)  
-// 	if ( class_exists( 'WP_Theme_JSON_Resolver' ) ) {
-// 		$theme_data = \WP_Theme_JSON_Resolver::get_merged_data();
-// 		$settings = $theme_data->get_settings();
-		
-// 		return [
-// 			'full' => $settings,
-// 			'typography' => $settings['typography'] ?? [],
-// 			'spacing' => $settings['spacing'] ?? [],
-// 			'color' => $settings['color'] ?? [],
-// 			'fontSizes' => $settings['typography']['fontSizes'] ?? [],
-// 			'colorPalette' => $settings['color']['palette'] ?? [],
-// 		];
-// 	}
-	
-// 	return null;
-// }
 
 /**
  * Get the preferred (current) font size from block attributes
