@@ -13,8 +13,6 @@ addFilter(
 	(settings, name) => {
 		if (name !== "core/heading") return settings;
 
-		console.log("Adding clamp attributes to:", name, settings);
-
 		return {
 			...settings,
 			attributes: {
@@ -55,13 +53,6 @@ function Edit(props) {
 			});
 		}
 	}, [fontSize, clampTypographyMin, clampTypographyMax, setAttributes]);
-
-	console.log("fontSize:", fontSize);
-	console.log("clamp attributes:", {
-		clampTypographyMin,
-		clampTypographyMax,
-		clampTypographyEnabled,
-	});
 
 	return (
 		<InspectorControls group="typography">

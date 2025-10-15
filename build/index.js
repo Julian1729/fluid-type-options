@@ -212,7 +212,6 @@ __webpack_require__.r(__webpack_exports__);
 
 (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__.addFilter)("blocks.registerBlockType", "clamptype/header-with-clamp", (settings, name) => {
   if (name !== "core/heading") return settings;
-  console.log("Adding clamp attributes to:", name, settings);
   return {
     ...settings,
     attributes: {
@@ -258,12 +257,6 @@ function Edit(props) {
       });
     }
   }, [fontSize, clampTypographyMin, clampTypographyMax, setAttributes]);
-  console.log("fontSize:", fontSize);
-  console.log("clamp attributes:", {
-    clampTypographyMin,
-    clampTypographyMax,
-    clampTypographyEnabled
-  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
     group: "typography",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("fieldset", {
